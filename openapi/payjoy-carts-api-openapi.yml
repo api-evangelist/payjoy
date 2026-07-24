@@ -1,0 +1,233 @@
+openapi: 3.0.0
+info:
+  title: PayJoy Partner API V2 Carts API
+  version: 1.0.0
+  description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
+  contact:
+    name: PayJoy Developer Portal
+    url: https://developers.payjoy.com/
+servers:
+- url: https://partner-integration.sandbox.payjoy.com/partner-api
+  description: Sandbox
+security:
+- PayJoyApiKeyAuth: []
+tags:
+- name: Carts
+  description: Retrieve cart information.
+paths:
+  /v2/carts/{cartTag}:
+    get:
+      tags:
+      - Carts
+      summary: Get Cart Information
+      description: Retrieve sales information for a particular cart.
+      operationId: getCartByTag
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cartTag
+        in: path
+        required: true
+        description: The unique identifier of the cart
+        schema:
+          type: string
+      - name: expand
+        in: query
+        description: Additional information
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - customer
+            - offer
+            - downpayment
+            - voucher
+        style: form
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCartByTagResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    GetCartByTagResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            cartTag:
+              type: string
+            createdAt:
+              type: number
+              format: number
+            purchaseAmount:
+              type: string
+            financeAmount:
+              type: string
+            downPaymentAmount:
+              type: string
+            pricePreTax:
+              type: string
+            currency:
+              type: string
+            isCustomerApproved:
+              type: boolean
+            isContractSigned:
+              type: boolean
+            isFinanceCreated:
+              type: boolean
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+            merchant:
+              type: object
+              properties:
+                merchantTag:
+                  type: string
+                merchantName:
+                  type: string
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+            clerk:
+              type: object
+              properties:
+                clerkTag:
+                  type: string
+                clerkName:
+                  type: string
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+            device:
+              type: object
+              properties:
+                manufacturer:
+                  type: string
+                makeModel:
+                  type: string
+                description:
+                  type: string
+            customer:
+              type: object
+              description: Customer information. Only included when `expand=customer` is passed as a query parameter. Due to contain PII Information, this feature is just limitedly provided in countries who require this information to complete the sale.
+              properties:
+                name:
+                  type: string
+                phoneNumber:
+                  type: string
+                email:
+                  type: string
+                nationalId:
+                  type: string
+                address:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    postalCode:
+                      type: string
+                    country:
+                      type: string
+            offer:
+              type: object
+              description: Offer information. Only included when `expand=offer` is passed as a query parameter. This feature is country dependent.
+              properties:
+                monthlyCost:
+                  type: string
+                weeklyCost:
+                  type: string
+                months:
+                  type: number
+            downPayment:
+              type: object
+              description: Down payment information. Only included when `expand=downpayment` is passed as a query parameter. Feature needs to be enabled for the merchant.
+              properties:
+                downPaymentCode:
+                  type: number
+                createdAt:
+                  type: number
+            voucher:
+              type: object
+              description: Voucher information. Only included when `expand=voucher` is passed as a query parameter. Feature needs to be enabled for the merchant.
+              properties:
+                voucherCode:
+                  type: string
+                createdAt:
+                  type: number
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    PayJoyApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-PayJoy-ApiKey
+      description: API key required to authenticate all requests. Include this key in the request header as `X-PayJoy-ApiKey`.

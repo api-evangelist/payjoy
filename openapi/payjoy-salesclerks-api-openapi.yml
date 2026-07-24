@@ -1,0 +1,176 @@
+openapi: 3.0.0
+info:
+  title: PayJoy Partner API V2 Carts SalesClerks API
+  version: 1.0.0
+  description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
+  contact:
+    name: PayJoy Developer Portal
+    url: https://developers.payjoy.com/
+servers:
+- url: https://partner-integration.sandbox.payjoy.com/partner-api
+  description: Sandbox
+security:
+- PayJoyApiKeyAuth: []
+tags:
+- name: SalesClerks
+  description: Retrieve sales clerks information.
+paths:
+  /v2/clerks:
+    get:
+      tags:
+      - SalesClerks
+      summary: Get Sales Clerks information
+      description: Retrieve all sales clerks
+      operationId: getSalesClerks
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSalesClerksResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/clerks/{clerkTag}:
+    get:
+      tags:
+      - SalesClerks
+      summary: Get Sales Clerk information by clerkTag
+      description: Retrieve a single sales clerk by clerkTag
+      operationId: getSalesClerk
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clerkTag
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSalesClerkResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    GetSalesClerksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              clerkTag:
+                type: string
+              name:
+                type: string
+              phoneNumber:
+                type: string
+              email:
+                type: string
+              isActive:
+                type: boolean
+              assignedMerchant:
+                type: object
+                properties:
+                  merchantTag:
+                    type: string
+                  name:
+                    type: string
+              metadata:
+                type: object
+                additionalProperties:
+                  type: string
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    GetSalesClerkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            clerkTag:
+              type: string
+            name:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            assignedMerchant:
+              type: object
+              properties:
+                merchantTag:
+                  type: string
+                merchantName:
+                  type: string
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    PayJoyApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-PayJoy-ApiKey
+      description: API key required to authenticate all requests. Include this key in the request header as `X-PayJoy-ApiKey`.

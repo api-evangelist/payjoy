@@ -1,0 +1,325 @@
+openapi: 3.0.0
+info:
+  title: PayJoy Partner API V2 Carts Repayments API
+  version: 1.0.0
+  description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
+  contact:
+    name: PayJoy Developer Portal
+    url: https://developers.payjoy.com/
+servers:
+- url: https://partner-integration.sandbox.payjoy.com/partner-api
+  description: Sandbox
+security:
+- PayJoyApiKeyAuth: []
+tags:
+- name: Repayments
+paths:
+  /v2/payments/options:
+    get:
+      tags:
+      - Repayments
+      summary: List Payment Options
+      description: 'Retrieves available repayment options for a specific loan. Supports different repayment plans such as full, partial, or custom amounts. **Note**: At least one query parameter (`deviceTag`, `phoneNumber`, or `imei`) is required.
+
+        '
+      operationId: getPaymentOptions
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceTag
+        in: query
+        description: DeviceTag identifier. (*Found in the PayJoy App*)
+        required: false
+        schema:
+          type: string
+      - name: phoneNumber
+        in: query
+        description: Customer's phone number
+        required: false
+        schema:
+          type: string
+      - name: imei
+        in: query
+        description: Device IMEI number
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOptionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/payments/references:
+    post:
+      tags:
+      - Repayments
+      summary: Creates Payment Reference
+      description: Creates a payment reference for a payment option
+      operationId: createPaymentReference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - deviceTag
+              - amount
+              - currency
+              - merchantId
+              - salesClerkId
+              properties:
+                deviceTag:
+                  type: string
+                  description: The Device Tag. Found in the PayJoy App.
+                amount:
+                  type: number
+                  description: The payment amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  description: ISO 4217 currency code
+                merchantId:
+                  type: integer
+                  description: The Merchant's unique ID
+                salesClerkId:
+                  type: integer
+                  description: The Clerk's unique ID
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/payments:
+    post:
+      tags:
+      - Repayments
+      summary: Pay Reference Code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - paymentReference
+              - amount
+              - currency
+              - merchantId
+              - salesClerkId
+              properties:
+                paymentReference:
+                  type: string
+                  description: The unique payment reference code
+                amount:
+                  type: number
+                  description: The payment amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  pattern: ^[A-Z]{3}$
+                  description: ISO 4217 currency code
+                merchantId:
+                  type: integer
+                  description: The Merchant's unique ID
+                salesClerkId:
+                  type: integer
+                  description: The Clerk's unique ID
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayReferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: payReference
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    PaymentOptionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            flexibleAmountEnabled:
+              type: boolean
+              description: It indicates if the customer can pay any amount between the minimum payment and the full payoff amount
+            deviceTag:
+              type: string
+              description: The device tag
+            currency:
+              type: string
+              description: ISO 4217 currency code
+            minimumPaymentAmount:
+              type: number
+              description: Minimum payment amount the customer can pay
+            fullPayoffAmount:
+              type: number
+              description: The payment amount to fully pay the loan
+            customerName:
+              type: string
+              description: Only the first initial and last name are shown to protect privacy
+            phoneNumber:
+              type: string
+              description: The customer's phone number. Only the last 4 digits are shown to protect privacy
+            paymentOptions:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentOption'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    PaymentOption:
+      type: object
+      properties:
+        daysPaid:
+          type: integer
+          description: Indicates the total days covered by the payment
+        amount:
+          type: number
+          description: The payment amount
+    CreateReferenceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            paymentReference:
+              type: string
+              description: The payment reference
+            paymentReferenceExpiration:
+              type: integer
+              description: UTC Timestamp in seconds when the payment reference expires
+            amount:
+              type: number
+              description: Payment amount
+            currency:
+              type: string
+              description: ISO 4217 currency code
+    PayReferenceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            transactionId:
+              type: string
+              description: Unique transaction ID
+            transactionCreatedAt:
+              type: integer
+              description: Timestamp in seconds when the payment was received
+            deviceTag:
+              type: string
+              description: The Device Tag
+            amount:
+              type: number
+              description: The amount paid
+            currency:
+              type: string
+              description: ISO 4217 currency code
+            customerName:
+              type: string
+              description: The customer's name. To protect customer privacy, we only show the first letter of the first name and the last name
+            phoneNumber:
+              type: string
+              description: The customer's phone number. To protect customer privacy, we only show the last 4 digits of the phone number.
+  responses:
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    PayJoyApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-PayJoy-ApiKey
+      description: API key required to authenticate all requests. Include this key in the request header as `X-PayJoy-ApiKey`.

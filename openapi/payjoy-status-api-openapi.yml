@@ -1,0 +1,81 @@
+openapi: 3.0.0
+info:
+  title: PayJoy Partner API V2 Carts Status API
+  version: 1.0.0
+  description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
+  contact:
+    name: PayJoy Developer Portal
+    url: https://developers.payjoy.com/
+servers:
+- url: https://partner-integration.sandbox.payjoy.com/partner-api
+  description: Sandbox
+security:
+- PayJoyApiKeyAuth: []
+tags:
+- name: Status
+  description: Displays the status of the application.
+paths:
+  /v2/status:
+    get:
+      tags:
+      - Status
+      summary: Service Status
+      description: Retrieve the status of the service.
+      operationId: getStatus
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    StatusResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            version:
+              type: string
+  responses:
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  securitySchemes:
+    PayJoyApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-PayJoy-ApiKey
+      description: API key required to authenticate all requests. Include this key in the request header as `X-PayJoy-ApiKey`.
