@@ -1,0 +1,50 @@
+generated: '2026-07-20'
+method: derived
+status: candidate
+source: openapi/payjoy-partner-api-openapi.yml
+note: >-
+  No official PayJoy MCP server was found. This is a candidate tool surface derived one-to-one from
+  the Partner API V2 operations; a hosted server would front the API-key-authenticated REST API.
+server:
+  name: payjoy-partner
+  transport: http
+tools:
+- name: get_cart
+  description: Retrieve sales information for a particular cart by cartTag.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getCartByTag
+- name: list_sales_clerks
+  description: Retrieve all sales clerks.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getSalesClerks
+- name: get_sales_clerk
+  description: Retrieve a single sales clerk by clerkTag.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getSalesClerk
+- name: pay_down_payment
+  description: Pay a down payment using a down payment code.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#PayDownPayment
+- name: list_merchants
+  description: Retrieve all merchants.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getMerchants
+- name: get_merchant
+  description: Retrieve a single merchant by merchantTag.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getMerchant
+- name: list_payment_options
+  description: Retrieve available repayment options for a loan (by deviceTag, phoneNumber or imei).
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getPaymentOptions
+- name: create_payment_reference
+  description: Create a payment reference for a repayment option.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#createPaymentReference
+- name: pay_reference
+  description: Pay a previously created payment reference code.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#payReference
+- name: get_status
+  description: Retrieve the service status.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getStatus
+- name: list_transactions
+  description: Retrieve transactions within a time range for reconciliation.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#getTransactions
+- name: redeem_voucher
+  description: Redeem a voucher code.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#redeemVoucher
+- name: cancel_voucher
+  description: Cancel a voucher code.
+  source_operation: openapi/payjoy-partner-api-openapi.yml#cancelVoucher

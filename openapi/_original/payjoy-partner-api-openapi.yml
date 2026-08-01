@@ -1,0 +1,1158 @@
+openapi: 3.0.0
+info:
+  title: PayJoy Partner API V2
+  version: 1.0.0
+  description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale
+    financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer
+    repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation.
+    Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy
+    developer portal API Reference.'
+  contact:
+    name: PayJoy Developer Portal
+    url: https://developers.payjoy.com/
+servers:
+- url: https://partner-integration.sandbox.payjoy.com/partner-api
+  description: Sandbox
+security:
+- PayJoyApiKeyAuth: []
+tags:
+- name: Carts
+  description: Retrieve cart information.
+- name: SalesClerks
+  description: Retrieve sales clerks information.
+- name: Merchants
+  description: Retrieve merchants information.
+- name: Status
+  description: Displays the status of the application.
+- name: Vouchers
+  description: Endpoints related to vouchers management
+paths:
+  /v2/carts/{cartTag}:
+    get:
+      tags:
+      - Carts
+      summary: Get Cart Information
+      description: Retrieve sales information for a particular cart.
+      operationId: getCartByTag
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: cartTag
+        in: path
+        required: true
+        description: The unique identifier of the cart
+        schema:
+          type: string
+      - name: expand
+        in: query
+        description: Additional information
+        required: false
+        schema:
+          type: array
+          items:
+            type: string
+            enum:
+            - customer
+            - offer
+            - downpayment
+            - voucher
+        style: form
+        explode: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetCartByTagResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/clerks:
+    get:
+      tags:
+      - SalesClerks
+      summary: Get Sales Clerks information
+      description: Retrieve all sales clerks
+      operationId: getSalesClerks
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSalesClerksResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/clerks/{clerkTag}:
+    get:
+      tags:
+      - SalesClerks
+      summary: Get Sales Clerk information by clerkTag
+      description: Retrieve a single sales clerk by clerkTag
+      operationId: getSalesClerk
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: clerkTag
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetSalesClerkResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/down-payments/{downPaymentCode}/pay:
+    put:
+      tags:
+      - Down Payments
+      summary: Pay Down Payment
+      description: Pay a down payment using a down payment code.
+      operationId: PayDownPayment
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: downPaymentCode
+        in: path
+        required: true
+        description: The unique identifier of the down payment
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - currency
+              - merchantId
+              - salesClerkId
+              properties:
+                amount:
+                  type: number
+                  description: The payment amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  pattern: ^[A-Z]{3}$
+                  description: ISO 4217 currency code
+                merchantId:
+                  type: integer
+                  description: The Merchant's unique ID
+                salesClerkId:
+                  type: integer
+                  description: The Clerk's unique ID
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayDownPaymentResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/merchants:
+    get:
+      tags:
+      - Merchants
+      summary: Get Merchants information
+      description: Retrieve all merchants
+      operationId: getMerchants
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMerchantsResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/merchants/{merchantTag}:
+    get:
+      tags:
+      - Merchants
+      summary: Get Merchant information by merchantTag
+      description: Retrieve a single merchant by merchantTag
+      operationId: getMerchant
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: merchantTag
+        in: path
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMerchantResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/payments/options:
+    get:
+      tags:
+      - Repayments
+      summary: List Payment Options
+      description: 'Retrieves available repayment options for a specific loan. Supports different repayment
+        plans such as full, partial, or custom amounts. **Note**: At least one query parameter (`deviceTag`,
+        `phoneNumber`, or `imei`) is required.
+
+        '
+      operationId: getPaymentOptions
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: deviceTag
+        in: query
+        description: DeviceTag identifier. (*Found in the PayJoy App*)
+        required: false
+        schema:
+          type: string
+      - name: phoneNumber
+        in: query
+        description: Customer's phone number
+        required: false
+        schema:
+          type: string
+      - name: imei
+        in: query
+        description: Device IMEI number
+        required: false
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Successful Response
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentOptionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: NotFound
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/payments/references:
+    post:
+      tags:
+      - Repayments
+      summary: Creates Payment Reference
+      description: Creates a payment reference for a payment option
+      operationId: createPaymentReference
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - deviceTag
+              - amount
+              - currency
+              - merchantId
+              - salesClerkId
+              properties:
+                deviceTag:
+                  type: string
+                  description: The Device Tag. Found in the PayJoy App.
+                amount:
+                  type: number
+                  description: The payment amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  description: ISO 4217 currency code
+                merchantId:
+                  type: integer
+                  description: The Merchant's unique ID
+                salesClerkId:
+                  type: integer
+                  description: The Clerk's unique ID
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateReferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '422':
+          description: Unprocessable Entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/payments:
+    post:
+      tags:
+      - Repayments
+      summary: Pay Reference Code
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - paymentReference
+              - amount
+              - currency
+              - merchantId
+              - salesClerkId
+              properties:
+                paymentReference:
+                  type: string
+                  description: The unique payment reference code
+                amount:
+                  type: number
+                  description: The payment amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  pattern: ^[A-Z]{3}$
+                  description: ISO 4217 currency code
+                merchantId:
+                  type: integer
+                  description: The Merchant's unique ID
+                salesClerkId:
+                  type: integer
+                  description: The Clerk's unique ID
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayReferenceResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+      operationId: payReference
+  /v2/status:
+    get:
+      tags:
+      - Status
+      summary: Service Status
+      description: Retrieve the status of the service.
+      operationId: getStatus
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/StatusResponse'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/transactions:
+    get:
+      tags:
+      - Reconciliation
+      summary: List Transactions
+      description: 'Retrieves a list of transactions within a specified time range. **Note**: startTime
+        and endTime query parameters are required to define the period.
+
+        '
+      operationId: getTransactions
+      parameters:
+      - name: startTime
+        in: query
+        description: Unix timestamp in milliseconds indicating the start of the time range.
+        required: true
+        schema:
+          type: string
+      - name: endTime
+        in: query
+        description: Unix timestamp in milliseconds indicating the end of the time range
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/vouchers/{voucherCode}/redeem:
+    put:
+      tags:
+      - Vouchers
+      summary: Redeems a Voucher
+      description: Redeems the given voucher code
+      operationId: redeemVoucher
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: voucherCode
+        in: path
+        required: true
+        description: The unique identifier of the voucher
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - currency
+              properties:
+                amount:
+                  type: number
+                  description: The voucher amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  pattern: ^[A-Z]{3}$
+                  description: ISO 4217 currency code
+                metadata:
+                  type: object
+                  description: The metadata object information
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedeemVoucherResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+  /v2/vouchers/{voucherCode}/cancel:
+    put:
+      tags:
+      - Vouchers
+      summary: Cancel a voucher
+      description: Cancel the given voucher code
+      operationId: cancelVoucher
+      parameters:
+      - name: X-PayJoy-ApiKey
+        in: header
+        required: true
+        schema:
+          type: string
+      - name: voucherCode
+        in: path
+        required: true
+        description: The unique identifier of the voucher
+        schema:
+          type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+              - amount
+              - currency
+              properties:
+                amount:
+                  type: number
+                  description: The voucher amount formatted as a number with two decimal places
+                currency:
+                  type: string
+                  pattern: ^[A-Z]{3}$
+                  description: ISO 4217 currency code
+                metadata:
+                  type: object
+                  description: The metadata object information
+              additionalProperties: false
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CancelVoucherResponse'
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalServerError'
+components:
+  securitySchemes:
+    PayJoyApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-PayJoy-ApiKey
+      description: API key required to authenticate all requests. Include this key in the request header
+        as `X-PayJoy-ApiKey`.
+  schemas:
+    GetCartByTagResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            cartTag:
+              type: string
+            createdAt:
+              type: number
+              format: number
+            purchaseAmount:
+              type: string
+            financeAmount:
+              type: string
+            downPaymentAmount:
+              type: string
+            pricePreTax:
+              type: string
+            currency:
+              type: string
+            isCustomerApproved:
+              type: boolean
+            isContractSigned:
+              type: boolean
+            isFinanceCreated:
+              type: boolean
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+            merchant:
+              type: object
+              properties:
+                merchantTag:
+                  type: string
+                merchantName:
+                  type: string
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+            clerk:
+              type: object
+              properties:
+                clerkTag:
+                  type: string
+                clerkName:
+                  type: string
+                metadata:
+                  type: object
+                  additionalProperties:
+                    type: string
+            device:
+              type: object
+              properties:
+                manufacturer:
+                  type: string
+                makeModel:
+                  type: string
+                description:
+                  type: string
+            customer:
+              type: object
+              description: Customer information. Only included when `expand=customer` is passed as a query
+                parameter. Due to contain PII Information, this feature is just limitedly provided in
+                countries who require this information to complete the sale.
+              properties:
+                name:
+                  type: string
+                phoneNumber:
+                  type: string
+                email:
+                  type: string
+                nationalId:
+                  type: string
+                address:
+                  type: object
+                  properties:
+                    street:
+                      type: string
+                    city:
+                      type: string
+                    state:
+                      type: string
+                    postalCode:
+                      type: string
+                    country:
+                      type: string
+            offer:
+              type: object
+              description: Offer information. Only included when `expand=offer` is passed as a query parameter.
+                This feature is country dependent.
+              properties:
+                monthlyCost:
+                  type: string
+                weeklyCost:
+                  type: string
+                months:
+                  type: number
+            downPayment:
+              type: object
+              description: Down payment information. Only included when `expand=downpayment` is passed
+                as a query parameter. Feature needs to be enabled for the merchant.
+              properties:
+                downPaymentCode:
+                  type: number
+                createdAt:
+                  type: number
+            voucher:
+              type: object
+              description: Voucher information. Only included when `expand=voucher` is passed as a query
+                parameter. Feature needs to be enabled for the merchant.
+              properties:
+                voucherCode:
+                  type: string
+                createdAt:
+                  type: number
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    GetSalesClerksResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              clerkTag:
+                type: string
+              name:
+                type: string
+              phoneNumber:
+                type: string
+              email:
+                type: string
+              isActive:
+                type: boolean
+              assignedMerchant:
+                type: object
+                properties:
+                  merchantTag:
+                    type: string
+                  name:
+                    type: string
+              metadata:
+                type: object
+                additionalProperties:
+                  type: string
+    GetSalesClerkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            clerkTag:
+              type: string
+            name:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            assignedMerchant:
+              type: object
+              properties:
+                merchantTag:
+                  type: string
+                merchantName:
+                  type: string
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+    PayDownPaymentResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            downPaymentCode:
+              type: string
+              description: The down payment code
+            transactionId:
+              type: string
+              description: The unique transaction ID/Code
+            completedAt:
+              type: integer
+              description: Timestamp in seconds when the down payment was paid
+    GetMerchantsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            properties:
+              merchantTag:
+                type: string
+              name:
+                type: string
+              address:
+                type: object
+                properties:
+                  address1:
+                    type: string
+                  address2:
+                    type: string
+                  city:
+                    type: string
+                  state:
+                    type: string
+                  postalCode:
+                    type: string
+                  country:
+                    type: string
+                  region:
+                    type: string
+              managerName:
+                type: string
+              phoneNumber:
+                type: string
+              email:
+                type: string
+              isActive:
+                type: boolean
+              metadata:
+                type: object
+                additionalProperties:
+                  type: string
+    GetMerchantResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            merchantTag:
+              type: string
+            name:
+              type: string
+            address:
+              type: object
+              properties:
+                address1:
+                  type: string
+                address2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                postalCode:
+                  type: string
+                country:
+                  type: string
+                region:
+                  type: string
+            managerName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
+    PaymentOptionsResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            flexibleAmountEnabled:
+              type: boolean
+              description: It indicates if the customer can pay any amount between the minimum payment
+                and the full payoff amount
+            deviceTag:
+              type: string
+              description: The device tag
+            currency:
+              type: string
+              description: ISO 4217 currency code
+            minimumPaymentAmount:
+              type: number
+              description: Minimum payment amount the customer can pay
+            fullPayoffAmount:
+              type: number
+              description: The payment amount to fully pay the loan
+            customerName:
+              type: string
+              description: Only the first initial and last name are shown to protect privacy
+            phoneNumber:
+              type: string
+              description: The customer's phone number. Only the last 4 digits are shown to protect privacy
+            paymentOptions:
+              type: array
+              items:
+                $ref: '#/components/schemas/PaymentOption'
+    PaymentOption:
+      type: object
+      properties:
+        daysPaid:
+          type: integer
+          description: Indicates the total days covered by the payment
+        amount:
+          type: number
+          description: The payment amount
+    CreateReferenceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            paymentReference:
+              type: string
+              description: The payment reference
+            paymentReferenceExpiration:
+              type: integer
+              description: UTC Timestamp in seconds when the payment reference expires
+            amount:
+              type: number
+              description: Payment amount
+            currency:
+              type: string
+              description: ISO 4217 currency code
+    PayReferenceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            transactionId:
+              type: string
+              description: Unique transaction ID
+            transactionCreatedAt:
+              type: integer
+              description: Timestamp in seconds when the payment was received
+            deviceTag:
+              type: string
+              description: The Device Tag
+            amount:
+              type: number
+              description: The amount paid
+            currency:
+              type: string
+              description: ISO 4217 currency code
+            customerName:
+              type: string
+              description: The customer's name. To protect customer privacy, we only show the first letter
+                of the first name and the last name
+            phoneNumber:
+              type: string
+              description: The customer's phone number. To protect customer privacy, we only show the
+                last 4 digits of the phone number.
+    StatusResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            status:
+              type: string
+            version:
+              type: string
+    ListTransactionsResponse:
+      type: object
+      properties:
+        data:
+          type: array
+          items:
+            type: object
+            required:
+            - type
+            - time
+            - amount
+            - currency
+            - merchant
+            properties:
+              type:
+                type: string
+              time:
+                type: integer
+              amount:
+                type: number
+                format: float
+              currency:
+                type: string
+              financeOrder:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  purchaseAmount:
+                    type: number
+                  financeAmount:
+                    type: number
+                  downPayment:
+                    type: number
+                  pricePreTax:
+                    type: number
+                  monthlyCost:
+                    type: number
+                  weeklyCost:
+                    type: number
+                  months:
+                    type: integer
+              payment:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  timestamp:
+                    type: integer
+                  amount:
+                    type: number
+              adjustment:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  type:
+                    type: string
+                  notes:
+                    type: string
+              merchant:
+                type: object
+                required:
+                - id
+                - name
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+              salesClerk:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+              device:
+                type: object
+                properties:
+                  phoneNumber:
+                    type: string
+                  simNumber:
+                    type: string
+                  imei:
+                    type: string
+                  family:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                  model:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      makeModel:
+                        type: string
+                      name:
+                        type: string
+    RedeemVoucherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            voucherCode:
+              type: string
+              description: The redeemed voucher code
+            authorizationCode:
+              type: string
+              description: The unique authorization code
+            redeemedAt:
+              type: integer
+              description: Timestamp in seconds for voucher redemption
+    CancelVoucherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            voucherCode:
+              type: string
+              description: The redeemed voucher code
+            cancellationCode:
+              type: string
+              description: The unique cancellation code
+            cancelledAt:
+              type: integer
+              description: Timestamp in seconds for voucher cancellation
+  responses:
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'

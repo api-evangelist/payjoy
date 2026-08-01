@@ -1,0 +1,95 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.payjoy.com/sales-integration/basics/error-handling
+derived_from: openapi/payjoy-partner-api-openapi.yml
+format: custom
+envelope:
+  fields:
+    error.code: Machine-readable error code (string)
+    error.message: Human-readable error message (string)
+    error.details: Array of key-value pairs for localization/translation
+    meta.requestId: Request ID (UUID) for support/tracing
+  problem_json: false
+http_status:
+- status: 200
+  title: OK
+  description: Everything worked as expected.
+- status: 400
+  title: Bad Request
+  description: The request was unacceptable, often due to a missing required parameter.
+- status: 401
+  title: Unauthorized
+  description: No valid API key provided.
+- status: 402
+  title: Request Failed
+  description: The parameters were valid but the request failed.
+- status: 403
+  title: Forbidden
+  description: The API key doesn't have permission to perform the request.
+- status: 404
+  title: Not Found
+  description: The requested resource doesn't exist.
+- status: 409
+  title: Conflict
+  description: The request conflicts with another request (e.g. reusing the same idempotent key).
+- status: 429
+  title: Too Many Requests
+  description: Rate limit exceeded; use exponential backoff.
+- status: 500
+  title: Internal Server Error
+  description: Something went wrong on PayJoy's end (rare).
+- status: 502
+  title: Bad Gateway
+- status: 503
+  title: Service Unavailable
+- status: 504
+  title: Gateway Timeout
+error_codes:
+- code: INVALID_QUERY_PARAMETER
+  status: 400
+  description: The request was unacceptable, often due to a missing/invalid parameter.
+- code: MISSING_QUERY_PARAMETER
+  status: 400
+  description: A required query parameter was omitted.
+- code: MISSING_API_KEY
+  status: 401
+  description: No valid API key provided.
+- code: INTERNAL_SERVER_ERROR
+  status: 5XX
+  description: Something went wrong on PayJoy's end.
+- code: RESOURCE_NOT_FOUND
+  status: 404
+  description: Device / finance order / payment not found for the supplied identifier.
+- code: MERCHANT_IS_CLOSED
+  status: 402
+  description: The merchant is currently closed.
+- code: MERCHANT_OUT_OF_COUNTRY_PURCHASE
+  status: 400
+  description: Device is from a different country than the merchant.
+- code: INVALID_DEVICE_TAG
+  status: 400
+  description: The supplied device tag is invalid.
+- code: MINIMUM_OPTION_AMOUNT_MISMATCH
+  status: 400
+  description: The amount used to create a reference is below the minimum payment option amount.
+- code: UNABLE_TO_CREATE_PAYMENT_REFERENCE
+  status: 402
+  description: Payment reference could not be created.
+- code: INVALID_PAYMENT_REFERENCE
+  status: 400
+  description: The payment reference is invalid.
+- code: PAYMENT_REFERENCE_EXPIRED
+  status: 400
+  description: The payment reference has expired.
+- code: PAYMENT_REFERENCE_ALREADY_PAID
+  status: 409
+  description: The payment reference has already been paid.
+- code: INVALID_PAYMENT_AMOUNT
+  status: 400
+  description: The payment amount value is invalid.
+- code: AMOUNT_MISMATCH
+  status: 400
+  description: The confirmation amount does not match.
+- code: UNABLE_TO_PROCESS_PAYMENT
+  status: 402
+  description: Generic payment processing error.

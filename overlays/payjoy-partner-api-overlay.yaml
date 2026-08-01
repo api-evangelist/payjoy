@@ -1,0 +1,19 @@
+overlay: 1.0.0
+info:
+  title: API Evangelist enhancements for PayJoy Partner API V2
+  version: 1.0.0
+extends: openapi/payjoy-partner-api-openapi.yml
+actions:
+- target: $.info
+  update:
+    x-apievangelist-source: https://developers.payjoy.com/sales-integration/api/api-reference
+    x-apievangelist-assembled: Merged from per-operation OpenAPI fragments published on the PayJoy developer portal.
+    x-apievangelist-auth: API key in X-PayJoy-ApiKey header
+    x-apievangelist-request-id-header: X-Request-ID
+    x-apievangelist-error-envelope: error.code / error.message / error.details / meta.requestId
+- target: $.servers
+  update:
+    x-apievangelist-note: Only the sandbox server is published in the reference; production v2 host is issued per partner. Legacy v1 lives at https://partner.payjoy.com.
+- target: $.paths['/v2/payments'].post
+  update:
+    x-apievangelist-idempotency: Reusing a payment reference returns 409 / PAYMENT_REFERENCE_ALREADY_PAID.

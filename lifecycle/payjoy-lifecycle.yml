@@ -1,0 +1,26 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.payjoy.com/sales-integration/basics/versioning
+versioning:
+  scheme: uri-path
+  current: v2
+  legacy: v1
+  docs: https://developers.payjoy.com/sales-integration/basics/versioning
+  policy: >-
+    Backward-compatible evolution. New resources, optional parameters, response properties, and
+    webhook event types may be added without notice; error codes are stable. Object IDs/Tags may
+    grow up to 255 characters. PayJoy reserves the right to make breaking changes with minimal
+    notice for security/privacy issues, coordinating with partners to minimize disruption.
+deprecation:
+  formal_policy: false
+  sunset_header: false
+  note: >-
+    No RFC 8594 Sunset/Deprecation header support documented. v1 (partner.payjoy.com) is a legacy
+    surface superseded by v2; no dated end-of-life is published.
+sla:
+  published: false
+status:
+  public_status_page: false
+  service_status_endpoint: /v2/status
+  note: The API exposes a GET /v2/status health endpoint but PayJoy publishes no public status page.
+deprecated_operations: []

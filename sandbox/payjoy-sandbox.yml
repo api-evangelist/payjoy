@@ -1,0 +1,104 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.payjoy.com/sales-integration/testing/sandboxes
+docs:
+- https://developers.payjoy.com/sales-integration/testing/sandboxes
+- https://developers.payjoy.com/sales-integration/basics/error-handling/testing-scenarios
+- https://developers.payjoy.com/ecommerce/api-reference/api-reference
+model: >-
+  PayJoy provisions dedicated, isolated sandbox environments per partner (request via a Key Account
+  Manager / Integration Product Manager). Each sandbox has its own Partner Portal URL and its own
+  API keys, managed in the sandbox Admin Console. Actions in a sandbox never affect production.
+  The published test values below are valid ONLY in sandbox.
+sandbox_server: https://partner-integration.sandbox.payjoy.com/partner-api
+partner_api_test_values:
+  list_payment_options:
+  - deviceTag: DTSTBBB
+    phoneNumber: '5512345678'
+    imei: '123456789012347'
+    scenario: Successful
+    error_code: N/A
+  - deviceTag: DTSTBBC
+    phoneNumber: '5512345679'
+    imei: '123456789012354'
+    scenario: Device is already fully paid
+    error_code: RESOURCE_NOT_FOUND
+  - deviceTag: DTSTBBD
+    phoneNumber: '5512345680'
+    imei: '123456789012362'
+    scenario: Non-existing DeviceTag
+    error_code: RESOURCE_NOT_FOUND
+  - deviceTag: DTSTBBT
+    phoneNumber: '5512345681'
+    imei: '123456789012370'
+    scenario: No device found
+    error_code: RESOURCE_NOT_FOUND
+  - deviceTag: DTSTBBF
+    phoneNumber: '5512345682'
+    imei: '123456789012370'
+    scenario: No payment found for the device
+    error_code: RESOURCE_NOT_FOUND
+  - deviceTag: DTSTBBG
+    phoneNumber: '5512345683'
+    imei: '123456789012388'
+    scenario: Device is from a different country than the merchant
+    error_code: MERCHANT_OUT_OF_COUNTRY_PURCHASE
+  - deviceTag: DTSTBBH
+    phoneNumber: '5512345684'
+    imei: '123456789012396'
+    scenario: Any unexpected issue
+    error_code: INTERNAL_SERVER_ERROR
+  create_payment_reference:
+  - deviceTag: DTSTBBB
+    scenario: Successfully creates payment reference
+    error_code: N/A
+  - deviceTag: DPFRTFC
+    scenario: Invalid device tag
+    error_code: INVALID_DEVICE_TAG
+  - deviceTag: DPFRTFD
+    scenario: Value for creating reference is not valid
+    error_code: MINIMUM_OPTION_AMOUNT_MISMATCH
+  - deviceTag: DPFRTFG
+    scenario: Unable to create payment reference
+    error_code: UNABLE_TO_CREATE_PAYMENT_REFERENCE
+  process_payment:
+  - payment_reference: DTSTBBB
+    scenario: Successful payment
+    error_code: N/A
+  - payment_reference: PAYREF00002
+    scenario: Invalid payment reference
+    error_code: INVALID_PAYMENT_REFERENCE
+  - payment_reference: PAYREF00004
+    scenario: Paying an expired reference
+    error_code: PAYMENT_REFERENCE_EXPIRED
+  - payment_reference: PAYREF00005
+    scenario: Paying an already-paid reference
+    error_code: PAYMENT_REFERENCE_ALREADY_PAID
+  - payment_reference: PAYREF00006
+    scenario: Invalid amount value
+    error_code: INVALID_PAYMENT_AMOUNT
+  - payment_reference: PAYREF00007
+    scenario: Wrong confirmation amount
+    error_code: AMOUNT_MISMATCH
+  - payment_reference: PAYREF00008
+    scenario: Generic payment processing error
+    error_code: UNABLE_TO_PROCESS_PAYMENT
+  list_transactions:
+  - startTime: '2000-01-01'
+    endTime: '2000-01-02'
+    scenario: List all transactions
+    error_code: N/A
+ecommerce_api_test_credentials:
+  note: Published demo sandbox credentials from the E-commerce API reference (sandbox-only).
+  brazil:
+    apiKey: DEMO_API_KEY_BR_123456789ABCDEFG
+    ecommerce_key: kAFnlnIHdPDYmxEFbA83jNjNM6OjVW/pAhhMrAtFXFQ=
+    partner_name: Demo PayJoy Brazil Admin
+  colombia:
+    apiKey: DEMO_API_KEY_CO_123456789ABCDEFG
+    ecommerce_key: wa25fcxb8yOO/AMfYSuFgBmphkSSEZTW0VAjaGAtKew=
+    partner_name: Demo PayJoy Colombia Admin
+  mexico:
+    apiKey: DEMO_API_KEY_MX_123456789ABCDEFG
+    ecommerce_key: nR7TMe5hAsZ4op3jqRSKkujfwB2klQWTzHfUvNqYaH0=
+    partner_name: DEMOMEXICOADMIN

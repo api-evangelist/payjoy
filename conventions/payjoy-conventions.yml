@@ -1,0 +1,58 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.payjoy.com/sales-integration/
+docs:
+- https://developers.payjoy.com/sales-integration/basics/authentication
+- https://developers.payjoy.com/sales-integration/basics/error-handling
+- https://developers.payjoy.com/sales-integration/basics/versioning
+- https://developers.payjoy.com/sales-integration/request-id
+authentication:
+  style: api-key-header
+  header: X-PayJoy-ApiKey
+  see: authentication/payjoy-authentication.yml
+idempotency:
+  supported: true
+  evidence: >-
+    The error reference documents HTTP 409 Conflict as "The request conflicts with another request
+    (perhaps due to using the same idempotent key)", indicating repeat requests are keyed for
+    idempotent behavior. The specific idempotency-key header name is not published in the developer
+    portal.
+  header: not-published
+  conflict_status: 409
+pagination:
+  documented: true
+  details_published: false
+  note: A Pagination page exists in the docs index but publishes no concrete cursor/offset scheme.
+request_tracing:
+  header: X-Request-ID
+  location: response header
+  format: UUIDv4
+  note: Generated automatically by PayJoy; echo/log it for support and cross-system traceability.
+versioning:
+  scheme: uri-path
+  current: v2
+  legacy: v1
+  policy: https://developers.payjoy.com/sales-integration/basics/versioning
+  backward_compatible_changes:
+  - Adding new API resources
+  - Adding new optional request parameters
+  - Adding new response properties / reordering properties
+  - Changing format/length of opaque strings (object IDs, Tags, error messages — not error codes)
+  - Adding new webhook event types (listeners must ignore unrecognized types)
+  constraints:
+  - Object IDs / Tags may be up to 255 characters; store case-sensitively.
+error_envelope:
+  shape: custom
+  fields:
+  - error.code
+  - error.message
+  - error.details
+  - meta.requestId
+  problem_json: false
+  see: errors/payjoy-problem-types.yml
+rate_limiting:
+  signal: HTTP 429 Too Many Requests
+  guidance: Use exponential backoff on retries.
+metadata:
+  supported: true
+  note: Cart, merchant, clerk and voucher objects carry a free-form metadata map (string values).

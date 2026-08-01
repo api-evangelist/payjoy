@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: searched
+source: https://developers.payjoy.com/sales-integration/webwooks/webhooks
+type: Webhooks
+spec_type: webhook-catalog
+docs:
+- https://developers.payjoy.com/sales-integration/webwooks/webhooks
+- https://developers.payjoy.com/ecommerce/webhooks/webhooks
+delivery:
+  method: POST
+  transport: https
+  callback_url: Configured per partner in the Admin Console; must begin with https://
+signing:
+  header: X-PayJoy-Signature
+  algorithm: HMAC-SHA256
+  encoding: base64
+  secret: partner PayJoy API key
+  verification: >-
+    Compute HMAC-SHA256 of the request `content` using your API key, base64-encode it, and compare
+    to the X-PayJoy-Signature header.
+events:
+  note: >-
+    PayJoy emits webhook notifications for all transaction data types. The concrete event-type
+    catalog is defined by the Transaction Data Types reference; listeners must ignore unrecognized
+    event types (per the versioning policy).
+  source_transaction_types:
+  - finance
+  - cash
+  - adjustment
+  reference: https://developers.payjoy.com/sales-integration/models/transaction-data-types
+ecommerce_webhook:
+  note: The E-commerce API delivers a completion/charge webhook (e.g. OpenPay complete-charge) to the partner callback URL.
+  reference: https://developers.payjoy.com/ecommerce/webhooks/webhooks

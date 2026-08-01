@@ -1,0 +1,20 @@
+generated: '2026-07-20'
+method: generated
+source: openapi/payjoy-partner-api-openapi.yml
+skills:
+- file: payjoy-process-repayment.md
+  name: Process a customer repayment
+  api: openapi/payjoy-partner-api-openapi.yml
+  operations: [getPaymentOptions, createPaymentReference, payReference]
+- file: payjoy-reconcile-transactions.md
+  name: Reconcile PayJoy transactions
+  api: openapi/payjoy-partner-api-openapi.yml
+  operations: [getTransactions, getMerchants, getSalesClerks]
+- file: payjoy-redeem-voucher.md
+  name: Redeem or cancel a PayJoy voucher
+  api: openapi/payjoy-partner-api-openapi.yml
+  operations: [redeemVoucher, cancelVoucher]
+- file: payjoy-lookup-cart.md
+  name: Look up a PayJoy cart / sale
+  api: openapi/payjoy-partner-api-openapi.yml
+  operations: [getCartByTag]

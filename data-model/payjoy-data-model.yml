@@ -1,0 +1,108 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/payjoy-partner-api-openapi.yml
+entities:
+- name: Cart
+  key: cartTag
+  description: A point-of-sale sale/basket; carries purchase/finance amounts and approval flags.
+  fields: [cartTag, createdAt, purchaseAmount, financeAmount, downPaymentAmount, pricePreTax,
+    currency, isCustomerApproved, isContractSigned, isFinanceCreated, metadata]
+- name: Merchant
+  key: merchantTag
+  id_field: merchantId
+  description: A retail location/partner store.
+  fields: [merchantTag, name, address, managerName, phoneNumber, email, isActive, metadata]
+- name: SalesClerk
+  key: clerkTag
+  id_field: salesClerkId
+  description: A merchant employee who transacts.
+  fields: [clerkTag, name, phoneNumber, email, isActive, assignedMerchant, metadata]
+- name: Device
+  key: deviceTag
+  description: A financed handset, addressable by deviceTag, phoneNumber or IMEI.
+  fields: [deviceTag, phoneNumber, simNumber, imei, family, model, manufacturer, makeModel]
+- name: Customer
+  description: End borrower; PII exposed only via expand=customer where locally permitted.
+  fields: [name, phoneNumber, email, nationalId, address]
+- name: Offer
+  description: Financing offer terms for a cart (expand=offer).
+  fields: [monthlyCost, weeklyCost, months]
+- name: DownPayment
+  key: downPaymentCode
+  description: An upfront payment against a finance order.
+  fields: [downPaymentCode, transactionId, completedAt]
+- name: Voucher
+  key: voucherCode
+  description: A redeemable/cancelable credit voucher.
+  fields: [voucherCode, authorizationCode, cancellationCode, redeemedAt, cancelledAt, metadata]
+- name: PaymentOption
+  description: A selectable repayment amount for a loan.
+  fields: [daysPaid, amount]
+- name: PaymentReference
+  key: paymentReference
+  description: A reference code created for a repayment, then paid.
+  fields: [paymentReference, paymentReferenceExpiration, amount, currency]
+- name: Transaction
+  description: A reconciliation record (finance, cash/payment, adjustment types).
+  fields: [type, time, amount, currency, financeOrder, payment, adjustment, merchant, salesClerk, device]
+- name: FinanceOrder
+  key: id
+  description: The underlying loan for a device.
+  fields: [id, purchaseAmount, financeAmount, downPayment, pricePreTax, monthlyCost, weeklyCost, months]
+relationships:
+- from: Cart
+  to: Merchant
+  type: belongs_to
+  via: merchant
+- from: Cart
+  to: SalesClerk
+  type: belongs_to
+  via: clerk
+- from: Cart
+  to: Device
+  type: has_one
+  via: device
+- from: Cart
+  to: Customer
+  type: has_one
+  via: customer (expand)
+- from: Cart
+  to: Offer
+  type: has_one
+  via: offer (expand)
+- from: Cart
+  to: DownPayment
+  type: has_one
+  via: downPayment (expand)
+- from: Cart
+  to: Voucher
+  type: has_one
+  via: voucher (expand)
+- from: SalesClerk
+  to: Merchant
+  type: belongs_to
+  via: assignedMerchant
+- from: PaymentReference
+  to: Device
+  type: belongs_to
+  via: deviceTag
+- from: Transaction
+  to: FinanceOrder
+  type: has_one
+  via: financeOrder
+- from: Transaction
+  to: Merchant
+  type: belongs_to
+  via: merchant
+- from: Transaction
+  to: SalesClerk
+  type: belongs_to
+  via: salesClerk
+- from: Transaction
+  to: Device
+  type: has_one
+  via: device
+- from: Device
+  to: FinanceOrder
+  type: has_one
+  via: finance details

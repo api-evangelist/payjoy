@@ -1,0 +1,68 @@
+# Partner API Documentation
+
+## Welcome
+
+- [Welcome](https://developers.payjoy.com/welcome.md): Welcome to PayJoy Partner Developer Portal
+
+## Catalog & Pricing
+
+- [Catalog and Pricing Integration](https://developers.payjoy.com/catalog-and-pricing/catalog-and-pricing-integration.md)
+- [Using Partner Console](https://developers.payjoy.com/catalog-and-pricing/via-admin-console/using-partner-console.md)
+- [Using Partner Provided URL](https://developers.payjoy.com/catalog-and-pricing/via-partner-provided-url/using-partner-provided-url.md)
+- [Additional features](https://developers.payjoy.com/catalog-and-pricing/via-partner-provided-url/additional-features.md): The following optional fields enhance catalog and pricing integration, offering more flexibility in price and catalog management.
+- [URL Authentication (Optional)](https://developers.payjoy.com/catalog-and-pricing/via-partner-provided-url/url-authentication-optional.md)
+
+## Sales Integration
+
+- [Sales Integration](https://developers.payjoy.com/sales-integration/sales-integration.md)
+- [Quick Start Guide](https://developers.payjoy.com/sales-integration/quickstart/quick-start-guide.md)
+- [Customer Repayments](https://developers.payjoy.com/sales-integration/customer-repayments.md)
+- [Authentication](https://developers.payjoy.com/sales-integration/basics/authentication.md)
+- [Error Handling](https://developers.payjoy.com/sales-integration/basics/error-handling.md)
+- [Testing Scenarios](https://developers.payjoy.com/sales-integration/basics/error-handling/testing-scenarios.md)
+- [Versioning](https://developers.payjoy.com/sales-integration/basics/versioning.md)
+- [Pagination](https://developers.payjoy.com/sales-integration/basics/pagination.md)
+- [Request ID](https://developers.payjoy.com/sales-integration/request-id.md): Request ID (X-Request-ID)
+- [Testing](https://developers.payjoy.com/sales-integration/testing.md)
+- [Testing Integration](https://developers.payjoy.com/sales-integration/testing/testing-integration.md)
+- [Sandboxes](https://developers.payjoy.com/sales-integration/testing/sandboxes.md)
+- [Basic Query](https://developers.payjoy.com/sales-integration/basic-query.md)
+- [Filters](https://developers.payjoy.com/sales-integration/filters.md): The API offers filters to narrow the output of “list-transactions”. Filters are supported for all 6 transaction types, and any sub-type within the transactions.
+- [Metadata](https://developers.payjoy.com/sales-integration/metadata.md)
+- [API Reference](https://developers.payjoy.com/sales-integration/api/api-reference.md)
+- [FAQ](https://developers.payjoy.com/sales-integration/support/faq.md)
+- [Troubleshooting](https://developers.payjoy.com/sales-integration/support/troubleshooting.md): Troubleshooting API Issues
+- [Webhooks](https://developers.payjoy.com/sales-integration/webwooks/webhooks.md): The API offers webhook functionality for all transaction types.
+- [Transactions](https://developers.payjoy.com/sales-integration/models/transactions.md)
+- [Transaction Data Types](https://developers.payjoy.com/sales-integration/models/transaction-data-types.md)
+
+## Ecommerce
+
+- [E-commerce](https://developers.payjoy.com/ecommerce/e-commerce.md)
+- [Checkout & Credit Application](https://developers.payjoy.com/ecommerce/getting-started/checkout-and-credit-application.md)
+- [Fulfilment](https://developers.payjoy.com/ecommerce/getting-started/fulfilment.md)
+- [Authentication](https://developers.payjoy.com/ecommerce/basics/authentication.md)
+- [Encryption](https://developers.payjoy.com/ecommerce/basics/encryption.md)
+- [Error Handling](https://developers.payjoy.com/ecommerce/basics/error-handling.md)
+- [Testing your Integration](https://developers.payjoy.com/ecommerce/basics/testing-your-integration.md)
+- [API Reference](https://developers.payjoy.com/ecommerce/api-reference/api-reference.md)
+- [Webhooks](https://developers.payjoy.com/ecommerce/webhooks/webhooks.md)
+- [FAQ](https://developers.payjoy.com/ecommerce/support/faq.md)
+- [Troubleshooting](https://developers.payjoy.com/ecommerce/support/troubleshooting.md)
+- [E-commerce integration playbook](https://developers.payjoy.com/ecommerce/playbook/e-commerce-integration-playbook.md)
+
+
+---
+
+# Agent Instructions
+This documentation is published with GitBook. GitBook is the documentation platform designed so that both humans and AI agents can read, navigate, and reason over technical content effectively. Learn more at gitbook.com.
+
+## Querying This Documentation
+If you need additional information, you can query the documentation dynamically by asking a question.
+Perform an HTTP GET request on a page URL with the `ask` query parameter:
+```
+GET https://developers.payjoy.com/welcome.md?ask=<question>
+```
+The question should be specific, self-contained, and written in natural language.
+The response will contain a direct answer to the question and relevant excerpts and sources from the documentation.
+Use this mechanism when the answer is not explicitly present in the current page, you need clarification or additional context, or you want to retrieve related documentation sections.

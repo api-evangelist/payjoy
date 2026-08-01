@@ -1,0 +1,33 @@
+generated: '2026-07-20'
+method: derived
+source: openapi/payjoy-partner-api-openapi.yml
+standards:
+- id: oauth2
+  conforms: false
+  evidence: No oauth2 security schemes; API-key (header) auth only.
+- id: oidc
+  conforms: false
+- id: rfc9457-problem-details
+  conforms: false
+  evidence: Errors use a custom envelope (error.code/message/details + meta.requestId), not application/problem+json.
+- id: rfc8594-sunset-header
+  conforms: false
+  evidence: No Sunset/Deprecation header support documented.
+- id: rfc9116-security-txt
+  conforms: false
+  evidence: No /.well-known/security.txt served (404 on www and api hosts).
+- id: webhook-hmac-signing
+  conforms: true
+  evidence: Webhooks are signed with an X-PayJoy-Signature HMAC-SHA256 (base64) over the payload.
+- id: request-id-tracing
+  conforms: true
+  evidence: X-Request-ID (UUIDv4) returned on every response.
+- id: idempotency
+  conforms: partial
+  evidence: 409 Conflict documented for reused idempotent keys; no published Idempotency-Key header spec.
+- id: pagination
+  conforms: unknown
+  evidence: Pagination page present in docs but publishes no concrete scheme.
+- id: iso4217-currency
+  conforms: true
+  evidence: Monetary endpoints require ISO 4217 currency codes (pattern ^[A-Z]{3}$).

@@ -1,0 +1,28 @@
+{
+  "provider": "payjoy",
+  "sources": [
+    "payjoy-carts-api-openapi.yml",
+    "payjoy-down-payments-api-openapi.yml",
+    "payjoy-merchants-api-openapi.yml",
+    "payjoy-reconciliation-api-openapi.yml",
+    "payjoy-repayments-api-openapi.yml",
+    "payjoy-salesclerks-api-openapi.yml",
+    "payjoy-status-api-openapi.yml",
+    "payjoy-vouchers-api-openapi.yml"
+  ],
+  "outputs": [
+    "payjoy-carts-api-openapi.yml",
+    "payjoy-down-payments-api-openapi.yml",
+    "payjoy-merchants-api-openapi.yml",
+    "payjoy-reconciliation-api-openapi.yml",
+    "payjoy-repayments-api-openapi.yml",
+    "payjoy-salesclerks-api-openapi.yml",
+    "payjoy-status-api-openapi.yml",
+    "payjoy-vouchers-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
