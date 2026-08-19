@@ -1,0 +1,84 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts Vouchers API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Vouchers",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Redeems a Voucher",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/vouchers/:voucherCode/redeem",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "voucherCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the voucher"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Redeems the given voucher code"
+        },
+        {
+          "info": {
+            "name": "Cancel a voucher",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/vouchers/:voucherCode/cancel",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "voucherCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the voucher"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Cancel the given voucher code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

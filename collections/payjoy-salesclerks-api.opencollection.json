@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts SalesClerks API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "SalesClerks",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Sales Clerks information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/clerks",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieve all sales clerks"
+        },
+        {
+          "info": {
+            "name": "Get Sales Clerk information by clerkTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/clerks/:clerkTag",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "clerkTag",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single sales clerk by clerkTag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

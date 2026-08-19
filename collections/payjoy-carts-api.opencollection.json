@@ -1,0 +1,57 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Carts",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Cart Information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/carts/:cartTag",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "cartTag",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the cart"
+              },
+              {
+                "name": "expand",
+                "value": "",
+                "type": "query",
+                "description": "Additional information"
+              }
+            ]
+          },
+          "docs": "Retrieve sales information for a particular cart."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,310 @@
+{
+  "item": [
+    {
+      "id": "92cce47c-bd11-4af3-8981-3b0f6df526ad",
+      "name": "Reconciliation",
+      "description": {
+        "content": "",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "224aa8e5-095f-4740-bdd6-554507566d39",
+          "name": "List Transactions",
+          "request": {
+            "name": "List Transactions",
+            "description": {
+              "content": "Retrieves a list of transactions within a specified time range. **Note**: startTime and endTime query parameters are required to define the period.\n",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "v2",
+                "transactions"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "startTime",
+                  "value": "<string>",
+                  "description": "(Required) Unix timestamp in milliseconds indicating the start of the time range."
+                },
+                {
+                  "disabled": false,
+                  "key": "endTime",
+                  "value": "<string>",
+                  "description": "(Required) Unix timestamp in milliseconds indicating the end of the time range"
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": null
+          },
+          "response": [
+            {
+              "id": "864603c7-9134-46c2-b3a1-db2625190220",
+              "name": "Success",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-PayJoy-ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"data\": [\n    {\n      \"type\": \"string\",\n      \"time\": 1281,\n      \"amount\": 8853.047764555551,\n      \"currency\": \"string\",\n      \"merchant\": {\n        \"id\": 5796,\n        \"name\": \"string\"\n      },\n      \"financeOrder\": {\n        \"id\": 3203,\n        \"purchaseAmount\": 4167.17918218878,\n        \"financeAmount\": 328.48712441492677,\n        \"downPayment\": 8324.659582078166,\n        \"pricePreTax\": 9161.444124443056,\n        \"monthlyCost\": 5023.3372379848515,\n        \"weeklyCost\": 3923.1118431981295,\n        \"months\": 6134\n      },\n      \"payment\": {\n        \"id\": 8178,\n        \"timestamp\": 9469,\n        \"amount\": 6847.162007823098\n      },\n      \"adjustment\": {\n        \"id\": 4302,\n        \"type\": \"string\",\n        \"notes\": \"string\"\n      },\n      \"salesClerk\": {\n        \"id\": 7234,\n        \"name\": \"string\"\n      },\n      \"device\": {\n        \"phoneNumber\": \"string\",\n        \"simNumber\": \"string\",\n        \"imei\": \"string\",\n        \"family\": {\n          \"id\": 1710,\n          \"name\": \"string\"\n        },\n        \"model\": {\n          \"id\": 8546,\n          \"makeModel\": \"string\",\n          \"name\": \"string\"\n        }\n      }\n    },\n    {\n      \"type\": \"string\",\n      \"time\": 787,\n      \"amount\": 8962.677607339421,\n      \"currency\": \"string\",\n      \"merchant\": {\n        \"id\": 1491,\n        \"name\": \"string\"\n      },\n      \"financeOrder\": {\n        \"id\": 2623,\n        \"purchaseAmount\": 4381.647048923658,\n        \"financeAmount\": 7980.549332619266,\n        \"downPayment\": 4722.84141066445,\n        \"pricePreTax\": 3823.5636697063724,\n        \"monthlyCost\": 6379.634075992742,\n        \"weeklyCost\": 8714.009158466732,\n        \"months\": 7255\n      },\n      \"payment\": {\n        \"id\": 8948,\n        \"timestamp\": 8124,\n        \"amount\": 9156.799813906942\n      },\n      \"adjustment\": {\n        \"id\": 7520,\n        \"type\": \"string\",\n        \"notes\": \"string\"\n      },\n      \"salesClerk\": {\n        \"id\": 4322,\n        \"name\": \"string\"\n      },\n      \"device\": {\n        \"phoneNumber\": \"string\",\n        \"simNumber\": \"string\",\n        \"imei\": \"string\",\n        \"family\": {\n          \"id\": 6337,\n          \"name\": \"string\"\n        },\n        \"model\": {\n          \"id\": 1319,\n          \"makeModel\": \"string\",\n          \"name\": \"string\"\n        }\n      }\n    }\n  ]\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "f9ea75ad-ca1f-45d0-8b7a-9534b3691370",
+              "name": "Bad Request",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-PayJoy-ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"context\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "3f735463-60ca-4c6b-b54d-d3c03bd9a791",
+              "name": "Unauthorized",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-PayJoy-ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"context\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "485d0d5d-ca6d-4975-bb3f-46aff9b5bf33",
+              "name": "Internal Server Error",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "v2",
+                    "transactions"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "startTime",
+                      "value": "<string>"
+                    },
+                    {
+                      "key": "endTime",
+                      "value": "<string>"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: apikey",
+                      "type": "text/plain"
+                    },
+                    "key": "X-PayJoy-ApiKey",
+                    "value": "<API Key>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Internal Server Error",
+              "code": 500,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": {\n    \"code\": \"string\",\n    \"message\": \"string\",\n    \"context\": [\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      },\n      {\n        \"key\": \"string\",\n        \"value\": \"string\"\n      }\n    ]\n  }\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://partner-integration.sandbox.payjoy.com/partner-api",
+      "key": "baseUrl"
+    }
+  ],
+  "auth": {
+    "type": "apikey",
+    "apikey": [
+      {
+        "key": "key",
+        "value": "X-PayJoy-ApiKey"
+      },
+      {
+        "key": "value",
+        "value": "{{apiKey}}"
+      },
+      {
+        "key": "in",
+        "value": "header"
+      }
+    ]
+  },
+  "info": {
+    "_postman_id": "4bd0ed4a-533a-4fcb-897a-e909f7be09fd",
+    "name": "PayJoy Partner API V2 Carts Reconciliation API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.\n\nContact Support:\n Name: PayJoy Developer Portal",
+      "type": "text/plain"
+    }
+  }
+}

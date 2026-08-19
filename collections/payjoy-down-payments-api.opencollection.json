@@ -1,0 +1,55 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts Down Payments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Down Payments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Pay Down Payment",
+            "type": "http"
+          },
+          "http": {
+            "method": "PUT",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/down-payments/:downPaymentCode/pay",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "downPaymentCode",
+                "value": "",
+                "type": "path",
+                "description": "The unique identifier of the down payment"
+              }
+            ],
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pay a down payment using a down payment code."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

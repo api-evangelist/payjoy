@@ -2,8 +2,7 @@ generated: '2026-07-20'
 method: derived
 status: candidate
 source: openapi/payjoy-partner-api-openapi.yml
-note: >-
-  No official PayJoy MCP server was found. This is a candidate tool surface derived one-to-one from
+note: No official PayJoy MCP server was found. This is a candidate tool surface derived one-to-one from
   the Partner API V2 operations; a hosted server would front the API-key-authenticated REST API.
 server:
   name: payjoy-partner
@@ -48,3 +47,9 @@ tools:
 - name: cancel_voucher
   description: Cancel a voucher code.
   source_operation: openapi/payjoy-partner-api-openapi.yml#cancelVoucher
+deployment:
+  mode: none
+  verified: derived
+  tools: 13
+  checked: '2026-08-12'
+  source: catalog MCP census

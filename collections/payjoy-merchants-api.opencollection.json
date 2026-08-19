@@ -1,0 +1,67 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts Merchants API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Merchants",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Get Merchants information",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/merchants",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ]
+          },
+          "docs": "Retrieve all merchants"
+        },
+        {
+          "info": {
+            "name": "Get Merchant information by merchantTag",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/merchants/:merchantTag",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "merchantTag",
+                "value": "",
+                "type": "path"
+              }
+            ]
+          },
+          "docs": "Retrieve a single merchant by merchantTag"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

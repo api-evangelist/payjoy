@@ -1,0 +1,93 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "PayJoy Partner API V2 Carts Repayments API",
+    "version": "1.0.0"
+  },
+  "request": {
+    "auth": {
+      "type": "apikey",
+      "key": "X-PayJoy-ApiKey",
+      "value": "{{X-PayJoy-ApiKey}}",
+      "placement": "header"
+    }
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Repayments",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "List Payment Options",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/payments/options",
+            "headers": [
+              {
+                "name": "X-PayJoy-ApiKey",
+                "value": ""
+              }
+            ],
+            "params": [
+              {
+                "name": "deviceTag",
+                "value": "",
+                "type": "query",
+                "description": "DeviceTag identifier. (*Found in the PayJoy App*)"
+              },
+              {
+                "name": "phoneNumber",
+                "value": "",
+                "type": "query",
+                "description": "Customer's phone number"
+              },
+              {
+                "name": "imei",
+                "value": "",
+                "type": "query",
+                "description": "Device IMEI number"
+              }
+            ]
+          },
+          "docs": "Retrieves available repayment options for a specific loan. Supports different repayment plans such as full, partial, or custom amounts. **Note**: At least one query parameter (`deviceTag`, `phoneNumber`, or `imei`) is required.\n"
+        },
+        {
+          "info": {
+            "name": "Creates Payment Reference",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/payments/references",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Creates a payment reference for a payment option"
+        },
+        {
+          "info": {
+            "name": "Pay Reference Code",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://partner-integration.sandbox.payjoy.com/partner-api/v2/payments",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            }
+          },
+          "docs": "Pay Reference Code"
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
