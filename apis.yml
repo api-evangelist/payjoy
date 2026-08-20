@@ -43,6 +43,16 @@ tags:
 - Payments
 - Lending
 - Buy Now Pay Later
+- Point-of-Sale
+- Emerging Markets
+- Financial Inclusion
+- Partner API
+tags_raw:
+- Company
+- Fintech
+- Payments
+- Lending
+- Buy Now Pay Later
 - Point of Sale
 - Emerging Markets
 - Financial Inclusion
@@ -62,6 +72,9 @@ apis:
   baseURL: https://payjoy.com/merchant/v3/e-commerce
   tags:
   - Payments
+  - E-Commerce
+  tags_raw:
+  - Payments
   - Ecommerce
   properties:
   - type: Documentation
@@ -74,6 +87,8 @@ apis:
   humanURL: https://developers.payjoy.com/sales-integration/sales-integration
   baseURL: https://partner-integration.sandbox.payjoy.com/partner-api
   tags:
+  - Cart
+  tags_raw:
   - Carts
   properties:
   - type: OpenAPI
