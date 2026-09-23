@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: PayJoy Partner API V2 Carts Reconciliation API
+  title: PayJoy Partner API V2 Reconciliation API
   version: 1.0.0
   description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
   contact:
@@ -19,9 +19,7 @@ paths:
       tags:
       - Reconciliation
       summary: List Transactions
-      description: 'Retrieves a list of transactions within a specified time range. **Note**: startTime and endTime query parameters are required to define the period.
-
-        '
+      description: 'Retrieves a list of transactions within a specified time range. **Note**: startTime and endTime query parameters are required to define the period.'
       operationId: getTransactions
       parameters:
       - name: startTime

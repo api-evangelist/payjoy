@@ -1,14 +1,7 @@
 {
   "provider": "payjoy",
   "sources": [
-    "payjoy-carts-api-openapi.yml",
-    "payjoy-down-payments-api-openapi.yml",
-    "payjoy-merchants-api-openapi.yml",
-    "payjoy-reconciliation-api-openapi.yml",
-    "payjoy-repayments-api-openapi.yml",
-    "payjoy-salesclerks-api-openapi.yml",
-    "payjoy-status-api-openapi.yml",
-    "payjoy-vouchers-api-openapi.yml"
+    "_original/payjoy-partner-api-openapi.yml"
   ],
   "outputs": [
     "payjoy-carts-api-openapi.yml",
@@ -23,6 +16,22 @@
   "archived": [],
   "errors": [],
   "warnings": [],
-  "notes": [],
-  "skipped": []
+  "notes": [
+    "sourced from openapi/_original/ (1 archived document(s)); previously refined output at the top level was skipped rather than re-split",
+    "payjoy-partner-api-openapi.yml: upgraded openapi 3.0.0 -> OpenAPI 3.2.0",
+    "payjoy-partner-api-openapi.yml: declared missing tag: Down Payments",
+    "payjoy-partner-api-openapi.yml: declared missing tag: Reconciliation",
+    "payjoy-partner-api-openapi.yml: declared missing tag: Repayments",
+    "apis.yml register: already-registered"
+  ],
+  "skipped": [
+    "payjoy-carts-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-down-payments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-merchants-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-reconciliation-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-repayments-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-salesclerks-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-status-api-openapi.yml: previously refined output, superseded by openapi/_original/",
+    "payjoy-vouchers-api-openapi.yml: previously refined output, superseded by openapi/_original/"
+  ]
 }

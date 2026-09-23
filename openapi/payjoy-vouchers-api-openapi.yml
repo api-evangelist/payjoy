@@ -1,6 +1,6 @@
-openapi: 3.0.0
+openapi: 3.2.0
 info:
-  title: PayJoy Partner API V2 Carts Vouchers API
+  title: PayJoy Partner API V2 Vouchers API
   version: 1.0.0
   description: 'PayJoy Partner API (Sales Integration) lets retail and OEM partners integrate PayJoy point-of-sale financing: retrieve cart/sale information, list merchants and sales clerks, offer and process customer repayments, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. Assembled by API Evangelist from the per-operation OpenAPI fragments published verbatim on the PayJoy developer portal API Reference.'
   contact:
@@ -135,6 +135,36 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    CancelVoucherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            voucherCode:
+              type: string
+              description: The redeemed voucher code
+            cancellationCode:
+              type: string
+              description: The unique cancellation code
+            cancelledAt:
+              type: integer
+              description: Timestamp in seconds for voucher cancellation
+    RedeemVoucherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            voucherCode:
+              type: string
+              description: The redeemed voucher code
+            authorizationCode:
+              type: string
+              description: The unique authorization code
+            redeemedAt:
+              type: integer
+              description: Timestamp in seconds for voucher redemption
     ErrorResponse:
       type: object
       properties:
@@ -158,36 +188,6 @@ components:
                 type: string
               value:
                 type: string
-    RedeemVoucherResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            voucherCode:
-              type: string
-              description: The redeemed voucher code
-            authorizationCode:
-              type: string
-              description: The unique authorization code
-            redeemedAt:
-              type: integer
-              description: Timestamp in seconds for voucher redemption
-    CancelVoucherResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            voucherCode:
-              type: string
-              description: The redeemed voucher code
-            cancellationCode:
-              type: string
-              description: The unique cancellation code
-            cancelledAt:
-              type: integer
-              description: Timestamp in seconds for voucher cancellation
   responses:
     NotFound:
       description: Not Found
