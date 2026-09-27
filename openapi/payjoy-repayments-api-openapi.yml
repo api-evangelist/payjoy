@@ -194,6 +194,24 @@ paths:
       operationId: payReference
 components:
   schemas:
+    CreateReferenceResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            paymentReference:
+              type: string
+              description: The payment reference
+            paymentReferenceExpiration:
+              type: integer
+              description: UTC Timestamp in seconds when the payment reference expires
+            amount:
+              type: number
+              description: Payment amount
+            currency:
+              type: string
+              description: ISO 4217 currency code
     PaymentOptionsResponse:
       type: object
       properties:
@@ -225,38 +243,24 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PaymentOption'
-    ErrorResponse:
+    Error:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/Error'
-    PaymentOption:
-      type: object
-      properties:
-        daysPaid:
-          type: integer
-          description: Indicates the total days covered by the payment
-        amount:
-          type: number
-          description: The payment amount
-    CreateReferenceResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            paymentReference:
-              type: string
-              description: The payment reference
-            paymentReferenceExpiration:
-              type: integer
-              description: UTC Timestamp in seconds when the payment reference expires
-            amount:
-              type: number
-              description: Payment amount
-            currency:
-              type: string
-              description: ISO 4217 currency code
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
     PayReferenceResponse:
       type: object
       properties:
@@ -284,33 +288,29 @@ components:
             phoneNumber:
               type: string
               description: The customer's phone number. To protect customer privacy, we only show the last 4 digits of the phone number.
-    Error:
+    PaymentOption:
       type: object
       properties:
-        code:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: Human-readable error message
-        context:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
+        daysPaid:
+          type: integer
+          description: Indicates the total days covered by the payment
+        amount:
+          type: number
+          description: The payment amount
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
   responses:
-    InternalServerError:
-      description: Internal Server Error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
+    InternalServerError:
+      description: Internal Server Error
       content:
         application/json:
           schema:

@@ -79,31 +79,22 @@ paths:
         '500':
           $ref: '#/components/responses/InternalServerError'
 components:
-  responses:
-    NotFound:
-      description: Not Found
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
-    Unauthorized:
-      description: Unauthorized
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
+    PayDownPaymentResponse:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/Error'
+        data:
+          type: object
+          properties:
+            downPaymentCode:
+              type: string
+              description: The down payment code
+            transactionId:
+              type: string
+              description: The unique transaction ID/Code
+            completedAt:
+              type: integer
+              description: Timestamp in seconds when the down payment was paid
     Error:
       type: object
       properties:
@@ -122,21 +113,30 @@ components:
                 type: string
               value:
                 type: string
-    PayDownPaymentResponse:
+    ErrorResponse:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            downPaymentCode:
-              type: string
-              description: The down payment code
-            transactionId:
-              type: string
-              description: The unique transaction ID/Code
-            completedAt:
-              type: integer
-              description: Timestamp in seconds when the down payment was paid
+        error:
+          $ref: '#/components/schemas/Error'
+  responses:
+    NotFound:
+      description: Not Found
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: Unauthorized
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   securitySchemes:
     PayJoyApiKeyAuth:
       type: apiKey

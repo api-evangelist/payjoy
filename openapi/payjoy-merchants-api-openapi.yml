@@ -76,24 +76,76 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
-      content:
-        application/json:
-          schema:
-            $ref: '#/components/schemas/ErrorResponse'
     Unauthorized:
       description: Unauthorized
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
+    InternalServerError:
+      description: Internal Server Error
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
   schemas:
-    ErrorResponse:
+    Error:
       type: object
       properties:
-        error:
-          $ref: '#/components/schemas/Error'
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
+    GetMerchantResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            merchantTag:
+              type: string
+            name:
+              type: string
+            address:
+              type: object
+              properties:
+                address1:
+                  type: string
+                address2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                postalCode:
+                  type: string
+                country:
+                  type: string
+                region:
+                  type: string
+            managerName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
     GetMerchantsResponse:
       type: object
       properties:
@@ -135,63 +187,11 @@ components:
                 type: object
                 additionalProperties:
                   type: string
-    GetMerchantResponse:
+    ErrorResponse:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            merchantTag:
-              type: string
-            name:
-              type: string
-            address:
-              type: object
-              properties:
-                address1:
-                  type: string
-                address2:
-                  type: string
-                city:
-                  type: string
-                state:
-                  type: string
-                postalCode:
-                  type: string
-                country:
-                  type: string
-                region:
-                  type: string
-            managerName:
-              type: string
-            phoneNumber:
-              type: string
-            email:
-              type: string
-            isActive:
-              type: boolean
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: Human-readable error message
-        context:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
+        error:
+          $ref: '#/components/schemas/Error'
   securitySchemes:
     PayJoyApiKeyAuth:
       type: apiKey
