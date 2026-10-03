@@ -194,6 +194,11 @@ paths:
       operationId: payReference
 components:
   schemas:
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
     CreateReferenceResponse:
       type: object
       properties:
@@ -243,24 +248,15 @@ components:
               type: array
               items:
                 $ref: '#/components/schemas/PaymentOption'
-    Error:
+    PaymentOption:
       type: object
       properties:
-        code:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: Human-readable error message
-        context:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
+        daysPaid:
+          type: integer
+          description: Indicates the total days covered by the payment
+        amount:
+          type: number
+          description: The payment amount
     PayReferenceResponse:
       type: object
       properties:
@@ -288,20 +284,24 @@ components:
             phoneNumber:
               type: string
               description: The customer's phone number. To protect customer privacy, we only show the last 4 digits of the phone number.
-    PaymentOption:
+    Error:
       type: object
       properties:
-        daysPaid:
-          type: integer
-          description: Indicates the total days covered by the payment
-        amount:
-          type: number
-          description: The payment amount
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
   responses:
     Unauthorized:
       description: Unauthorized
