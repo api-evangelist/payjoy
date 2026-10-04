@@ -70,44 +70,23 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    GetMerchantResponse:
+    Error:
       type: object
       properties:
-        data:
-          type: object
-          properties:
-            merchantTag:
-              type: string
-            name:
-              type: string
-            address:
-              type: object
-              properties:
-                address1:
-                  type: string
-                address2:
-                  type: string
-                city:
-                  type: string
-                state:
-                  type: string
-                postalCode:
-                  type: string
-                country:
-                  type: string
-                region:
-                  type: string
-            managerName:
-              type: string
-            phoneNumber:
-              type: string
-            email:
-              type: string
-            isActive:
-              type: boolean
-            metadata:
-              type: object
-              additionalProperties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
                 type: string
     ErrorResponse:
       type: object
@@ -155,33 +134,54 @@ components:
                 type: object
                 additionalProperties:
                   type: string
-    Error:
+    GetMerchantResponse:
       type: object
       properties:
-        code:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: Human-readable error message
-        context:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
+        data:
+          type: object
+          properties:
+            merchantTag:
+              type: string
+            name:
+              type: string
+            address:
+              type: object
+              properties:
+                address1:
+                  type: string
+                address2:
+                  type: string
+                city:
+                  type: string
+                state:
+                  type: string
+                postalCode:
+                  type: string
+                country:
+                  type: string
+                region:
+                  type: string
+            managerName:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            metadata:
+              type: object
+              additionalProperties:
                 type: string
   responses:
-    Unauthorized:
-      description: Unauthorized
+    InternalServerError:
+      description: Internal Server Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

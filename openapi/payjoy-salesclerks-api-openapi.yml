@@ -70,11 +70,56 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        code:
+          type: string
+          description: The error code
+        message:
+          type: string
+          description: Human-readable error message
+        context:
+          type: array
+          items:
+            type: object
+            properties:
+              key:
+                type: string
+              value:
+                type: string
     ErrorResponse:
       type: object
       properties:
         error:
           $ref: '#/components/schemas/Error'
+    GetSalesClerkResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            clerkTag:
+              type: string
+            name:
+              type: string
+            phoneNumber:
+              type: string
+            email:
+              type: string
+            isActive:
+              type: boolean
+            assignedMerchant:
+              type: object
+              properties:
+                merchantTag:
+                  type: string
+                merchantName:
+                  type: string
+            metadata:
+              type: object
+              additionalProperties:
+                type: string
     GetSalesClerksResponse:
       type: object
       properties:
@@ -104,60 +149,15 @@ components:
                 type: object
                 additionalProperties:
                   type: string
-    GetSalesClerkResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            clerkTag:
-              type: string
-            name:
-              type: string
-            phoneNumber:
-              type: string
-            email:
-              type: string
-            isActive:
-              type: boolean
-            assignedMerchant:
-              type: object
-              properties:
-                merchantTag:
-                  type: string
-                merchantName:
-                  type: string
-            metadata:
-              type: object
-              additionalProperties:
-                type: string
-    Error:
-      type: object
-      properties:
-        code:
-          type: string
-          description: The error code
-        message:
-          type: string
-          description: Human-readable error message
-        context:
-          type: array
-          items:
-            type: object
-            properties:
-              key:
-                type: string
-              value:
-                type: string
   responses:
-    Unauthorized:
-      description: Unauthorized
+    InternalServerError:
+      description: Internal Server Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:

@@ -33,11 +33,6 @@ paths:
           $ref: '#/components/responses/InternalServerError'
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     StatusResponse:
       type: object
       properties:
@@ -66,6 +61,11 @@ components:
                 type: string
               value:
                 type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
   responses:
     InternalServerError:
       description: Internal Server Error

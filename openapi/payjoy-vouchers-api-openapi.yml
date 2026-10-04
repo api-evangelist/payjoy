@@ -150,26 +150,6 @@ components:
             cancelledAt:
               type: integer
               description: Timestamp in seconds for voucher cancellation
-    RedeemVoucherResponse:
-      type: object
-      properties:
-        data:
-          type: object
-          properties:
-            voucherCode:
-              type: string
-              description: The redeemed voucher code
-            authorizationCode:
-              type: string
-              description: The unique authorization code
-            redeemedAt:
-              type: integer
-              description: Timestamp in seconds for voucher redemption
-    ErrorResponse:
-      type: object
-      properties:
-        error:
-          $ref: '#/components/schemas/Error'
     Error:
       type: object
       properties:
@@ -188,15 +168,35 @@ components:
                 type: string
               value:
                 type: string
+    ErrorResponse:
+      type: object
+      properties:
+        error:
+          $ref: '#/components/schemas/Error'
+    RedeemVoucherResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            voucherCode:
+              type: string
+              description: The redeemed voucher code
+            authorizationCode:
+              type: string
+              description: The unique authorization code
+            redeemedAt:
+              type: integer
+              description: Timestamp in seconds for voucher redemption
   responses:
-    Unauthorized:
-      description: Unauthorized
+    InternalServerError:
+      description: Internal Server Error
       content:
         application/json:
           schema:
             $ref: '#/components/schemas/ErrorResponse'
-    InternalServerError:
-      description: Internal Server Error
+    Unauthorized:
+      description: Unauthorized
       content:
         application/json:
           schema:
