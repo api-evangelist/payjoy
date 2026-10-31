@@ -64,6 +64,133 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-PayJoy is a company surfaced as a portfolio company of greylock, union-square-ventures and added to the API Evangelist network as a stub for enrichment. Sector: fintech. This profile is a lead awaiting the enrichment pipeline.
+PayJoy is a fintech that provides financial access to underserved consumers in emerging markets through smartphone financing and a secured credit card that requires only a government ID. Its Partner Developer Portal exposes a REST Partner API (Sales Integration) so retail and OEM partners can integrate PayJoy point-of-sale financing: retrieve cart and sale information, list merchants and sales clerks, offer and process customer repayments, create and pay payment references, redeem and cancel vouchers, pay down payments, and pull transaction history for reconciliation. A separate E-commerce API supports online checkout and credit-application flows. Authentication is by API key; webhooks are HMAC-SHA256 signed. Founded 2015; backed by Greylock and Union Square Ventures.
 
-Backed by: greylock, union-square-ventures — https://www.payjoy.com/
+**Areas:** Company · Fintech · Payments · Lending · Buy Now Pay Later · Point-of-Sale · Emerging Markets · Financial Inclusion · Partner API
+
+## PayJoy on APIs.io
+
+Everything profiled for PayJoy is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/payjoy/](https://apis.io/providers/payjoy/)** — or go straight to one of the APIs or properties below.
+
+### APIs (9)
+
+- [PayJoy E-commerce API](https://apis.io/apis/payjoy/payjoy-e-commerce-api/) — REST API for online checkout and credit-application flows: retrieve supported devices, begin a sale, and receive completion webhooks. Bearer-token…
+- [PayJoy Carts API](https://apis.io/apis/payjoy/payjoy-carts-api/) — Retrieve cart information.
+- [PayJoy Down Payments API](https://apis.io/apis/payjoy/payjoy-down-payments-api/) — The Down Payments API from PayJoy — 1 operation(s) for down payments.
+- [PayJoy Merchants API](https://apis.io/apis/payjoy/payjoy-merchants-api/) — Retrieve merchants information.
+- [PayJoy Reconciliation API](https://apis.io/apis/payjoy/payjoy-reconciliation-api/) — The Reconciliation API from PayJoy — 1 operation(s) for reconciliation.
+- [PayJoy Repayments API](https://apis.io/apis/payjoy/payjoy-repayments-api/) — The Repayments API from PayJoy — 3 operation(s) for repayments.
+- [PayJoy SalesClerks API](https://apis.io/apis/payjoy/payjoy-salesclerks-api/) — Retrieve sales clerks information.
+- [PayJoy Status API](https://apis.io/apis/payjoy/payjoy-status-api/) — Displays the status of the application.
+- [PayJoy Vouchers API](https://apis.io/apis/payjoy/payjoy-vouchers-api/) — Endpoints related to vouchers management
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### AsyncAPI (1)
+
+Event-driven and webhook contracts.
+
+- [Payjoy Webhooks](https://apis.io/asyncapis/payjoy/payjoy-webhooks/)
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [payjoy-partner](https://apis.io/servers/payjoy/payjoy-partner/)
+
+#### Collections (8)
+
+Postman and Open Collection request collections.
+
+- [PayJoy Partner API V2 Carts API](https://apis.io/collections/payjoy/open-payjoy-carts-api/)
+- [PayJoy Partner API V2 Carts Down Payments API](https://apis.io/collections/payjoy/open-payjoy-down-payments-api/)
+- [PayJoy Partner API V2 Carts Merchants API](https://apis.io/collections/payjoy/open-payjoy-merchants-api/)
+- [PayJoy Partner API V2 Carts Reconciliation API](https://apis.io/collections/payjoy/open-payjoy-reconciliation-api/)
+- [PayJoy Partner API V2 Carts Repayments API](https://apis.io/collections/payjoy/open-payjoy-repayments-api/)
+- [PayJoy Partner API V2 Carts SalesClerks API](https://apis.io/collections/payjoy/open-payjoy-salesclerks-api/)
+- [PayJoy Partner API V2 Carts Status API](https://apis.io/collections/payjoy/open-payjoy-status-api/)
+- [PayJoy Partner API V2 Carts Vouchers API](https://apis.io/collections/payjoy/open-payjoy-vouchers-api/)
+
+#### Overlays (1)
+
+OpenAPI overlays, including conversational phrasing for each operation.
+
+- [Payjoy Partner Api Overlay](https://apis.io/overlays/payjoy/payjoy-partner-api-overlay/)
+
+#### Security (2)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Payjoy Authentication](https://apis.io/security/payjoy/payjoy-authentication/)
+- [Payjoy Domain Security](https://apis.io/security/payjoy/payjoy-domain-security/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://www.payjoy.com/)
+- [Documentation](https://developers.payjoy.com/)
+- [Getting started](https://developers.payjoy.com/sales-integration/quickstart/quick-start-guide)
+- [Sign up](https://app.payjoy.com/admin-console/login)
+- [Support](https://developers.payjoy.com/sales-integration/support/faq)
+- [Blog](https://www.payjoy.com/blog)
+- [Terms of service](https://www.payjoy.com/terms)
+- [Privacy policy](https://www.payjoy.com/privacy)
+- [GitHub](https://github.com/payjoy)
+
+## API Evangelist rating
+
+**Kin Score 43.3** — developing · rubric 0.25.0 · scored 2026-10-23
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 57.1 |
+| Contract governance | 4.5 |
+| Operational transparency | 10.5 |
+| Developer ergonomics | 66.1 |
+| Access clarity | 34.2 |
+
+**Agent readiness 31.7** — agent-ready
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | yes |
+| Agentic Access | — |
+| Reversibility Documented | documented (partial credit) |
+| MCP Server | — |
+| Auth Clarity | bearer (partial credit) |
+| Idempotency | documented (partial credit) |
+| Error Semantics | verified |
+| OpenAPI Examples | — |
+| Rate Limit Signal | — |
+| Event Surface Described | yes |
+| Agent Skills | derived (partial credit) |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | — |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | — |
+| Agentic Commerce | — |
+| Pagination Ratio | — |
+| Operation Distinctiveness | distinct |
+
+**Regulatory alignment 22.3** — Payments
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/payjoy/](https://apis.io/providers/payjoy/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for PayJoy: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/payjoy/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
